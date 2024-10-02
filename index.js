@@ -28,9 +28,21 @@ app.post("/tasks", (req, res) => {
     res.status(201).json(newTask);
 });
 
+app.put("/tasks/:id", (req, res) => {
+    const id  = parseInt(req.params.id);
+    const {  name, status } = req.body;
+  
+    const task = taskArray.find((task) => task.id === id);
+    
+    if(!task){
+        return res.status(404).json({"message":`Task with id: ${id} not found`});    
+    }  
+    task.name = name;
+    task.status = status;
+      
+    res.status(201).json(task);
+});
+
 app.listen(3000,()=>{
     console.log('Server is running on port 3000');
 });
-
-
-
