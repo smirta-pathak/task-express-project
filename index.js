@@ -57,6 +57,17 @@ app.patch("/tasks/:id", (req, res) => {
     res.status(200).json(task);
 });
 
+app.delete("/tasks/:id", (req, res) => {
+    const id  = parseInt(req.params.id);
+    const task = taskArray.find((task) => task.id === id);
+    
+    if(!task){
+        return res.status(404).json({"message":`Task with id: ${id} not found`});
+    }       
+    taskArray = taskArray.filter((task) => task.id !== id);
+    return res.status(200).send({"message":`Task with id: ${id} was deleted succesfully`});
+});
+
 app.listen(3000,()=>{
     console.log('Server is running on port 3000');
 });
