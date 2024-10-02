@@ -11,6 +11,16 @@ app.get('/tasks',(req,res)=>{
     res.status(200).json(taskArray);
 });
 
+app.get("/tasks/:id", (req, res) => {
+    const id  = parseInt(req.params.id);
+    console.log("id is "+id);
+    const taskFound = taskArray.find((task) => task.id === id);
+    console.log(taskFound);
+    if(!taskFound)
+        return res.status(404).json({"message":`Task with id: ${id} not found`});
+    res.status(200).json(taskFound);
+});
+
 app.post("/tasks", (req, res) => {
     const task = req.body;
     let newTask = { ...task, id: ++count };
