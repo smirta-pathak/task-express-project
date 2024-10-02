@@ -1,8 +1,11 @@
 const express = require('express');
 const app = express();
 
-app.get('/',(req,res)=>{
-    res.send('Hello from Express.js');
+let tasks=[];
+let count=0;
+
+app.get('/tasks',(req,res)=>{
+    res.status(200).json(tasks);
 });
 
 app.listen(3000,()=>{
